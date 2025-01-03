@@ -1,0 +1,10 @@
+CREATE TABLE Transactions (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    AccountID INT NOT NULL,
+    Amount DECIMAL(10, 2) NOT NULL,
+    TransactionType ENUM('INCOME', 'EXPENSE', 'TRANSFER') NOT NULL,
+    Description VARCHAR(255),
+    TransactionDate DATE NOT NULL,
+    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (AccountID) REFERENCES Accounts(ID)
+);
