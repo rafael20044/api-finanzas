@@ -1,5 +1,6 @@
 package dev.rafaelbarragan.api.finanza.domain.user.entity;
 
+import dev.rafaelbarragan.api.finanza.domain.account.entity.Account;
 import dev.rafaelbarragan.api.finanza.domain.user.dto.UserCreate;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Table(name = "users")
 @Entity
@@ -28,6 +30,9 @@ public class User {
     private String passwordHash;
 
     private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Account> accountList;
 
     public User(UserCreate create, String passWordHash) {
         this.userName = create.userName();
