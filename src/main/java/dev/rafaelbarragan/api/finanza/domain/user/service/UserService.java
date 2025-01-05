@@ -32,4 +32,9 @@ public class UserService implements IUserService{
         }
         throw new RuntimeException("Usuario existente");
     }
+
+    @Override
+    public User findEntity(Long id) {
+        return repositoty.findById(id).orElseThrow(()->new RuntimeException("Usuario no existente"));
+    }
 }

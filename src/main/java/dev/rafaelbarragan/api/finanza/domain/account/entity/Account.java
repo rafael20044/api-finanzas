@@ -1,5 +1,7 @@
 package dev.rafaelbarragan.api.finanza.domain.account.entity;
 
+import dev.rafaelbarragan.api.finanza.domain.account.dto.AccountCreate;
+import dev.rafaelbarragan.api.finanza.domain.account.dto.AccountEdit;
 import dev.rafaelbarragan.api.finanza.domain.enums.AccountType;
 import dev.rafaelbarragan.api.finanza.domain.user.entity.User;
 import jakarta.persistence.*;
@@ -30,4 +32,14 @@ public class Account {
 
     private Double balance;
 
+    public Account(AccountCreate create, User user) {
+        this.user = user;
+        this.accountName = create.accountName();
+        this.accountType = create.accountType();
+        this.balance = 0.0;
+    }
+
+    public void update(AccountEdit edit){
+        this.accountName = edit.accountName();
+    }
 }
