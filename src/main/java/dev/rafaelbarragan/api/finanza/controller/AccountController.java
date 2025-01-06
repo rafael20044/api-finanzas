@@ -2,10 +2,12 @@ package dev.rafaelbarragan.api.finanza.controller;
 
 import dev.rafaelbarragan.api.finanza.domain.account.dto.AccountCreate;
 import dev.rafaelbarragan.api.finanza.domain.account.dto.AccountEdit;
+import dev.rafaelbarragan.api.finanza.domain.account.dto.AccountFind;
 import dev.rafaelbarragan.api.finanza.domain.account.dto.AccountResponse;
 import dev.rafaelbarragan.api.finanza.domain.account.service.AccountService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,7 @@ public class AccountController {
 
     private final AccountService service;
 
+    @Autowired
     public AccountController(AccountService service){
         this.service = service;
     }
@@ -33,7 +36,7 @@ public class AccountController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AccountResponse> find(@PathVariable Long id){
+    public ResponseEntity<AccountFind> find(@PathVariable Long id){
         var respuesta = service.find(id);
         return ResponseEntity.ok(respuesta);
     }

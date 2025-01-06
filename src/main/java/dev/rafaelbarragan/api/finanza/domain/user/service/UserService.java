@@ -4,6 +4,7 @@ import dev.rafaelbarragan.api.finanza.domain.user.dto.UserCreate;
 import dev.rafaelbarragan.api.finanza.domain.user.dto.UserResponse;
 import dev.rafaelbarragan.api.finanza.domain.user.entity.User;
 import dev.rafaelbarragan.api.finanza.domain.user.repository.UserRepositoty;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ public class UserService implements IUserService{
     private final UserRepositoty repositoty;
     private final BCryptPasswordEncoder passwordEncoder;
 
+    @Autowired
     public UserService(UserRepositoty repositoty){
         this.repositoty = repositoty;
         this.passwordEncoder = new BCryptPasswordEncoder();

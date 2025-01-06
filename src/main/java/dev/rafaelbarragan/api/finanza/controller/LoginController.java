@@ -5,6 +5,7 @@ import dev.rafaelbarragan.api.finanza.domain.user.dto.UserResponse;
 import dev.rafaelbarragan.api.finanza.domain.user.service.UserService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +22,7 @@ public class LoginController {
 
     private final UserService userService;
 
+    @Autowired
     public LoginController(UserService userService){
         this.userService = userService;
     }

@@ -2,6 +2,7 @@ package dev.rafaelbarragan.api.finanza.domain.account.service;
 
 import dev.rafaelbarragan.api.finanza.domain.account.dto.AccountCreate;
 import dev.rafaelbarragan.api.finanza.domain.account.dto.AccountEdit;
+import dev.rafaelbarragan.api.finanza.domain.account.dto.AccountFind;
 import dev.rafaelbarragan.api.finanza.domain.account.dto.AccountResponse;
 import dev.rafaelbarragan.api.finanza.domain.account.entity.Account;
 import org.springframework.data.domain.Page;
@@ -11,7 +12,7 @@ public interface IAccountService {
 
     AccountResponse crear(AccountCreate create);
 
-    AccountResponse find(Long id);
+    AccountFind find(Long id);
 
     Page<AccountResponse> findAll(Pageable pageable);
 
@@ -20,4 +21,6 @@ public interface IAccountService {
     Account findEntity(Long id);
 
     String delete(Long id);
+
+    void save(Account account);
 }

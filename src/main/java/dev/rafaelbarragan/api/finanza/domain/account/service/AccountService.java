@@ -2,11 +2,13 @@ package dev.rafaelbarragan.api.finanza.domain.account.service;
 
 import dev.rafaelbarragan.api.finanza.domain.account.dto.AccountCreate;
 import dev.rafaelbarragan.api.finanza.domain.account.dto.AccountEdit;
+import dev.rafaelbarragan.api.finanza.domain.account.dto.AccountFind;
 import dev.rafaelbarragan.api.finanza.domain.account.dto.AccountResponse;
 import dev.rafaelbarragan.api.finanza.domain.account.entity.Account;
 import dev.rafaelbarragan.api.finanza.domain.account.repository.AccountRepository;
 import dev.rafaelbarragan.api.finanza.domain.user.entity.User;
 import dev.rafaelbarragan.api.finanza.domain.user.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ public class AccountService implements IAccountService{
     private final AccountRepository repository;
     private final UserService userService;
 
+    @Autowired
     public AccountService(AccountRepository repository, UserService userService){
         this.repository = repository;
         this.userService = userService;
@@ -32,9 +35,9 @@ public class AccountService implements IAccountService{
     }
 
     @Override
-    public AccountResponse find(Long id) {
+    public AccountFind find(Long id) {
         Account account = findEntity(id);
-        return new AccountResponse(account);
+        return new AccountFind(account);
     }
 
     @Override
@@ -59,5 +62,10 @@ public class AccountService implements IAccountService{
     public String delete(Long id) {
         repository.deleteById(id);
         return "Usuario eliminado";
+    }
+
+    @Override
+    public void save(Account account) {
+        repository.save(account);
     }
 }
