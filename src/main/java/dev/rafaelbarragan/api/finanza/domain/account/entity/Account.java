@@ -6,6 +6,7 @@ import dev.rafaelbarragan.api.finanza.domain.enums.AccountType;
 import dev.rafaelbarragan.api.finanza.domain.enums.TransactionType;
 import dev.rafaelbarragan.api.finanza.domain.transaction.entity.Transaction;
 import dev.rafaelbarragan.api.finanza.domain.user.entity.User;
+import dev.rafaelbarragan.api.finanza.exception.TransactionException;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -66,7 +67,7 @@ public class Account {
             }
             case CREDIT -> {
                 if (this.balance == 0.0 || this.balance < amount) {
-                    throw new RuntimeException("Error en la transaccion");
+                    throw new TransactionException("Error en la transaccion");
                 }
                 this.balance-= amount;
             }
@@ -80,7 +81,7 @@ public class Account {
             }
             case CHECKING, INVESTMEN, SAVINGS -> {
                 if (this.balance == 0.0 || this.balance < amount) {
-                    throw new RuntimeException("Error en la transaccion");
+                    throw new TransactionException("Error en la transaccion");
                 }
                 this.balance-= amount;
             }
@@ -90,7 +91,7 @@ public class Account {
     private void transfer(Double amount, Account destinationAccount){
         if (this.balance == 0.0 || this.balance < amount || destinationAccount == null ||
                 destinationAccount.getId().equals(this.id)) {
-            throw new RuntimeException("Error en la transaccion");
+            throw new TransactionException("Error en la transaccion");
         }
         this.balance-=amount;
         destinationAccount.setBalance(destinationAccount.getBalance() + amount);

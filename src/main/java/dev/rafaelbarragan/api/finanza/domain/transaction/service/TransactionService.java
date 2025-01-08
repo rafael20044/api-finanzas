@@ -6,6 +6,7 @@ import dev.rafaelbarragan.api.finanza.domain.transaction.dto.TransactionCreate;
 import dev.rafaelbarragan.api.finanza.domain.transaction.dto.TransactionResponse;
 import dev.rafaelbarragan.api.finanza.domain.transaction.entity.Transaction;
 import dev.rafaelbarragan.api.finanza.domain.transaction.repository.TransactionRepository;
+import dev.rafaelbarragan.api.finanza.exception.TransactionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,12 +41,12 @@ public class TransactionService implements ITransactionService{
 
     @Override
     public TransactionResponse cancelar(Long id) {
-        Transaction transaction = repository.findById(id).orElseThrow(()-> new RuntimeException("Transaccion no encontrada"));
+        Transaction transaction = repository.findById(id).orElseThrow(()-> new TransactionException("Transaccion no encontrada"));
         if (LocalDateTime.now().isAfter(transaction.getCreatedAt().plusDays(2))){
-            throw new RuntimeException("Tiempo para poder cancelar vencido");
+            throw new TransactionException("Tiempo para poder cancelar vencido");
         }
         if (transaction.getCancelled()) {
-            throw new RuntimeException("Esta transaccion ya esta canselada");
+            throw new TransactionException("Esta transaccion ya esta canselada");
         }
         Account account = transaction.getAccount();
         account.revertir(transaction.getAmount());

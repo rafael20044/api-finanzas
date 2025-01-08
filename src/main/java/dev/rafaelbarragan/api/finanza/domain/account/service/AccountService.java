@@ -8,6 +8,7 @@ import dev.rafaelbarragan.api.finanza.domain.account.entity.Account;
 import dev.rafaelbarragan.api.finanza.domain.account.repository.AccountRepository;
 import dev.rafaelbarragan.api.finanza.domain.user.entity.User;
 import dev.rafaelbarragan.api.finanza.domain.user.service.UserService;
+import dev.rafaelbarragan.api.finanza.exception.ExistenciaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -55,7 +56,7 @@ public class AccountService implements IAccountService{
 
     @Override
     public Account findEntity(Long id) {
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("Cuenta no exitente"));
+        return repository.findById(id).orElseThrow(() -> new ExistenciaException("Cuenta no exitente"));
     }
 
     @Override

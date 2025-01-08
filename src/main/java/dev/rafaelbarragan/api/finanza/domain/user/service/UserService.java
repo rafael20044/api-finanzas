@@ -6,6 +6,8 @@ import dev.rafaelbarragan.api.finanza.domain.user.dto.UserEdit;
 import dev.rafaelbarragan.api.finanza.domain.user.dto.UserResponse;
 import dev.rafaelbarragan.api.finanza.domain.user.entity.User;
 import dev.rafaelbarragan.api.finanza.domain.user.repository.UserRepositoty;
+import dev.rafaelbarragan.api.finanza.exception.CorreoException;
+import dev.rafaelbarragan.api.finanza.exception.ExistenciaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,17 +38,17 @@ public class UserService implements IUserService{
             repositoty.save(user);
             return new UserResponse(user);
         }
-        throw new RuntimeException("Usuario existente");
+        throw new ExistenciaException("Usuario existente");
     }
 
     @Override
     public User findEntity(Long id) {
-        return repositoty.findById(id).orElseThrow(()->new RuntimeException("Usuario no existente"));
+        return repositoty.findById(id).orElseThrow(()->new ExistenciaException("Usuario no existente"));
     }
 
     @Override
     public UserResponse find(Long id) {
-        User user = repositoty.findById(id).orElseThrow(()->new RuntimeException("Usuario no existente"));
+        User user = repositoty.findById(id).orElseThrow(()->new ExistenciaException("Usuario no existente"));
         return new UserResponse(user);
     }
 
@@ -65,7 +67,7 @@ public class UserService implements IUserService{
             repositoty.save(user);
             return new UserResponse(user);
         }
-        throw new RuntimeException("Correo existente");
+        throw new CorreoException("Correo existente");
     }
 
     @Override
