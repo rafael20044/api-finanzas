@@ -2,6 +2,7 @@ package dev.rafaelbarragan.api.finanza.domain.user.entity;
 
 import dev.rafaelbarragan.api.finanza.domain.account.entity.Account;
 import dev.rafaelbarragan.api.finanza.domain.user.dto.UserCreate;
+import dev.rafaelbarragan.api.finanza.domain.user.dto.UserEdit;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,5 +40,17 @@ public class User {
         this.email = create.email();
         this.passwordHash = passWordHash;
         this.createdAt = LocalDateTime.now();
+    }
+
+    public void update(UserEdit edit, String passwordHash) {
+        if (edit.userName() != null) {
+            this.userName = edit.userName();
+        }
+        if (edit.email() != null) {
+            this.email = edit.email();
+        }
+        if (passwordHash != null) {
+            this.passwordHash = passwordHash;
+        }
     }
 }
