@@ -18,7 +18,7 @@ public record UserResponse(
         List<UserAccount> accounts
 ) {
     public UserResponse(User user) {
-        this(user.getId(), user.getUserName(), user.getEmail(), user.getCreatedAt(),
+        this(user.getId(), user.getUsername(), user.getEmail(), user.getCreatedAt(),
                 user.getAccountList().stream().map(UserAccount::new).toList());
     }
 }

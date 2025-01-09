@@ -7,6 +7,6 @@ public record AccountUser(
         String name
 ) {
     public AccountUser(User user) {
-        this(user.getId(), user.getUserName());
+        this(user.getId(), user.getUsername());
     }
 }

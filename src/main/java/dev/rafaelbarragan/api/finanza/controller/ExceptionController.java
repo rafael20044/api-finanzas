@@ -1,5 +1,7 @@
 package dev.rafaelbarragan.api.finanza.controller;
 
+import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import dev.rafaelbarragan.api.finanza.exception.CorreoException;
 import dev.rafaelbarragan.api.finanza.exception.Exception;
 import dev.rafaelbarragan.api.finanza.exception.ExistenciaException;
@@ -38,6 +40,18 @@ public class ExceptionController {
         String violations = e.getConstraintViolations().stream()
                 .map(ConstraintViolation::getMessage) .collect(Collectors.joining(", "));
         var ex = new Exception(violations, 400);
+        return ResponseEntity.badRequest().body(ex);
+    }
+
+    @ExceptionHandler(JWTCreationException.class)
+    public ResponseEntity<Exception> errorCrearToken(JWTCreationException e){
+        var ex = new Exception(e.getMessage(), 400);
+        return ResponseEntity.badRequest().body(ex);
+    }
+
+    @ExceptionHandler(JWTVerificationException.class)
+    public ResponseEntity<Exception> errorVerificarToken(JWTVerificationException e){
+        var ex = new Exception(e.getMessage(), 400);
         return ResponseEntity.badRequest().body(ex);
     }
 }

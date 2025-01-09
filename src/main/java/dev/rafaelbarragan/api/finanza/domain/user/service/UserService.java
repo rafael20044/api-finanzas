@@ -11,6 +11,7 @@ import dev.rafaelbarragan.api.finanza.exception.ExistenciaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -74,5 +75,10 @@ public class UserService implements IUserService{
     public UserDelete delete(Long id) {
         repositoty.deleteById(id);
         return new UserDelete("Usuario borrado", 200);
+    }
+
+    @Override
+    public UserDetails findUserDetail(String username) {
+        return repositoty.findByUserName(username).orElseThrow(()->new ExistenciaException("Usuario no existente"));
     }
 }

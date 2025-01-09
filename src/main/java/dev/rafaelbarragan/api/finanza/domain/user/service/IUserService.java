@@ -7,6 +7,7 @@ import dev.rafaelbarragan.api.finanza.domain.user.dto.UserResponse;
 import dev.rafaelbarragan.api.finanza.domain.user.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public interface IUserService {
 
@@ -21,4 +22,6 @@ public interface IUserService {
     UserResponse edit(UserEdit edit);
 
     UserDelete delete(Long id);
+
+    public UserDetails findUserDetail(String username);
 }
